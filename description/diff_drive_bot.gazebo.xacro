@@ -112,9 +112,9 @@
         <plugin name='diff_drive' filename='libgazebo_ros_diff_drive.so'>
 
             <ros>
-			      	<namespace>/</namespace>
-			      	<remapping>cmd_vel:=${robot_name}/cmd_vel</remapping>
-			      	<remapping>odom:=${robot_name}/odom</remapping>
+			      	<xacro:if value="${robot_name != ''}">
+                  <namespace>${robot_name}</namespace>
+              </xacro:if>
 			      </ros>
 
             <!-- Wheel Information -->
@@ -135,14 +135,22 @@
             <publish_odom>true</publish_odom>
             <publish_odom_tf>true</publish_odom_tf>
             <publish_wheel_tf>false</publish_wheel_tf>
-            <odometry_topic>odom</odometry_topic>
 
             <!-- Frames -->
-            <odometry_frame>world</odometry_frame>
-            <robot_base_frame>${robot_name}/base_link</robot_base_frame>
+            <xacro:if value="${robot_name != ''}">
+                <odometry_frame>${robot_name}/odom</odometry_frame>
+                <robot_base_frame>${robot_name}/base_link</robot_base_frame>
+            </xacro:if>
+            <xacro:unless value="${robot_name != ''}">
+                <odometry_frame>odom</odometry_frame>
+                <robot_base_frame>base_link</robot_base_frame>
+            </xacro:unless>
+
+
             <update_rate>30</update_rate>
 
             <!-- Topic -->
+            <odometry_topic>odom</odometry_topic>
             <command_topic>cmd_vel</command_topic>
 
         </plugin>
@@ -180,11 +188,18 @@
             </ray>
             <plugin name="lidar_controller" filename="libgazebo_ros_ray_sensor.so">
                 <ros>
-                    <namespace>${robot_name}</namespace>
+                    <xacro:if value="${robot_name != ''}">
+                        <namespace>${robot_name}</namespace>
+                    </xacro:if>
                     <remapping>~/out:=lidar_points</remapping>
                 </ros>
                 <output_type>sensor_msgs/LaserScan</output_type>
-                <frame_name>${robot_name}/lidar_link</frame_name>
+                <xacro:if value="${robot_name != ''}">
+                    <frame_name>${robot_name}/lidar_link</frame_name>
+                </xacro:if>
+                <xacro:unless value="${robot_name != ''}">
+                    <frame_name>lidar_link</frame_name>
+                </xacro:unless>
             </plugin>
         </sensor>
     </gazebo>
