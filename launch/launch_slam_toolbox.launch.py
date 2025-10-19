@@ -30,14 +30,6 @@ def generate_launch_description():
         description="Full path to the ROS2 parameters file to use for the slam_toolbox node",
     )
 
-    default_namespace = ""
-
-    arg_namespace = DeclareLaunchArgument(
-        "namespace", default_value=default_namespace, description="robot namespace"
-    )
-
-    namespace = LaunchConfiguration("namespace")
-
     # If the provided param file doesn't have slam_toolbox params, we must pass the
     # default_params_file instead. This could happen due to automatic propagation of
     # LaunchArguments. See:
@@ -70,7 +62,7 @@ def generate_launch_description():
         parameters=[actual_params_file, {"use_sim_time": use_sim_time}],
         package="slam_toolbox",
         executable="sync_slam_toolbox_node",
-        name=[namespace, TextSubstitution(text="_sync_slam_toolbox")],
+        name="slam_toolbox",
         output="screen",
     )
 
@@ -78,7 +70,6 @@ def generate_launch_description():
 
     ld.add_action(declare_use_sim_time_argument)
     ld.add_action(declare_params_file_cmd)
-    ld.add_action(arg_namespace)
     ld.add_action(log_param_change)
     ld.add_action(start_sync_slam_toolbox_node)
 
