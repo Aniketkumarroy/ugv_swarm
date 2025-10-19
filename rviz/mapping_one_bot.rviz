@@ -8,6 +8,8 @@ Panels:
         - /Status1
         - /TF1
         - /TF1/Frames1
+        - /Map1
+        - /Map1/Topic1
         - /RobotModel1
       Splitter Ratio: 0.5
     Tree Height: 797
@@ -110,22 +112,21 @@ Visualization Manager:
       Show Names: false
       Tree:
         map:
-          {}
-        odom:
-          base_link:
-            chassis:
-              camera_link:
-                {}
-              front_castor:
-                {}
-              left_wheel:
-                {}
-              lidar_link:
-                {}
-              rear_castor:
-                {}
-              right_wheel:
-                {}
+          odom:
+            base_link:
+              chassis:
+                camera_link:
+                  {}
+                front_castor:
+                  {}
+                left_wheel:
+                  {}
+                lidar_link:
+                  {}
+                rear_castor:
+                  {}
+                right_wheel:
+                  {}
       Update Interval: 0
       Value: true
     - Alpha: 0.699999988079071
@@ -136,7 +137,7 @@ Visualization Manager:
       Name: Map
       Topic:
         Depth: 5
-        Durability Policy: Volatile
+        Durability Policy: Transient Local
         History Policy: Keep Last
         Reliability Policy: Reliable
         Value: /map
