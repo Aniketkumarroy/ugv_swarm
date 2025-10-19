@@ -1,0 +1,71 @@
+#!python3
+import os
+
+from ament_index_python.packages import get_package_share_directory
+
+from launch import LaunchDescription
+from launch.substitutions import LaunchConfiguration, Command, TextSubstitution
+from launch.actions import DeclareLaunchArgument
+from launch_ros.actions import Node
+
+import xacro
+
+
+def generate_launch_description():
+
+    package_name = "ugv_swarm"
+
+    # Check if we're told to use sim time
+    arg_use_sim_time = DeclareLaunchArgument(
+        "use_sim_time", default_value="false", description="Use sim time if true"
+    )
+
+    use_sim_time = LaunchConfiguration("use_sim_time")
+
+    default_namespace = ""
+
+    arg_namespace = DeclareLaunchArgument(
+        "namespace", default_value=default_namespace, description="robot namespace"
+    )
+
+    namespace = LaunchConfiguration("namespace")
+
+    # Process the URDF file
+    pkg_path = os.path.join(get_package_share_directory(package_name))
+    robot_desc_path = os.path.join(pkg_path, "description", "robot.urdf.xacro")
+
+    # Create a robot_state_publisher node
+    params = {
+        "robot_description": Command(
+            ["xacro ", robot_desc_path, " robot_name:=", namespace]
+        ),
+        "frame_prefix": [namespace, TextSubstitution(text="/")],
+        "use_sim_time": use_sim_time,
+    }
+    node_robot_state_publisher = Node(
+        package="robot_state_publisher",
+        executable="robot_state_publisher",
+        name=[namespace, TextSubstitution(text="_state_publisher")],
+        namespace=namespace,
+        output="screen",
+        parameters=[params],
+    )
+
+    joint_state_publisher = Node(
+        package="joint_state_publisher",
+        executable="joint_state_publisher",
+        name=[namespace, TextSubstitution(text="_joint_state_publisher")],
+        namespace=namespace,
+        output="screen",
+        parameters=[params],
+    )
+
+    # Launch!
+    return LaunchDescription(
+        [
+            arg_use_sim_time,
+            arg_namespace,
+            node_robot_state_publisher,
+            joint_state_publisher,
+        ]
+    )
