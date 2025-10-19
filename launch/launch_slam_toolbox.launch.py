@@ -30,11 +30,19 @@ def generate_launch_description():
         description="Full path to the ROS2 parameters file to use for the slam_toolbox node",
     )
 
+    default_node_name = "slam_toolbox"
+
+    arg_node_name = DeclareLaunchArgument(
+        "node_name", default_value=default_node_name, description="robot namespace"
+    )
+
+    node_name = LaunchConfiguration("node_name")
+
     # If the provided param file doesn't have slam_toolbox params, we must pass the
     # default_params_file instead. This could happen due to automatic propagation of
     # LaunchArguments. See:
     # https://github.com/ros-planning/navigation2/pull/2243#issuecomment-800479866
-    has_node_params = HasNodeParams(source_file=params_file, node_name="slam_toolbox")
+    has_node_params = HasNodeParams(source_file=params_file, node_name=node_name)
 
     actual_params_file = PythonExpression(
         [
@@ -62,7 +70,7 @@ def generate_launch_description():
         parameters=[actual_params_file, {"use_sim_time": use_sim_time}],
         package="slam_toolbox",
         executable="sync_slam_toolbox_node",
-        name="slam_toolbox",
+        name=node_name,
         output="screen",
     )
 
@@ -71,6 +79,7 @@ def generate_launch_description():
     ld.add_action(declare_use_sim_time_argument)
     ld.add_action(declare_params_file_cmd)
     ld.add_action(log_param_change)
+    ld.add_action(arg_node_name)
     ld.add_action(start_sync_slam_toolbox_node)
 
     return ld
