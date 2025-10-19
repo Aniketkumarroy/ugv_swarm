@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<robot name="amr" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:include filename="diff_drive_bot.urdf.xacro"/>
+
+    <xacro:arg name="robot_name" default=""/>
+
+    <xacro:diff_drive_bot robot_name="$(arg robot_name)"/>
+
+</robot>
