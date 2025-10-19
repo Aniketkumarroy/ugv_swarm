@@ -2,3 +2,15 @@
 this is a ros simulation of a differential drive robot
 - [] modularize robot urdf and integration of different modules as plug and play
 - [] parameterized enabling and disabling of different sensor suits
+
+```bash
+vcs import --input src/ugv_swarm/dependencies.repos src
+rosdep update
+rosdep install --from-paths src --ignore-src -r -y
+```
+
+```bash
+sudo apt install ros-foxy-test-msgs
+sudo apt install ros-foxy-behaviortree-cpp-v3
+sudo apt install libompl-dev
+```
