@@ -29,15 +29,22 @@ mkdir src
 cd src
 git clone https://github.com/Aniketkumarroy/ugv_swarm.git
 ```
-
+now we need to get some packages for core functionalities of navigation, slam and also some world files. use vcs + rosdep get it
 ```bash
+cd <your_ros2_ws>
 vcs import --input src/ugv_swarm/dependencies.repos src
 rosdep update
 rosdep install --from-paths src --ignore-src -r -y
 ```
-
+although rosdep should have done everything still these are some dependencies packages which are missed by rosdep, install it
 ```bash
 sudo apt install ros-foxy-test-msgs
 sudo apt install ros-foxy-behaviortree-cpp-v3
 sudo apt install libompl-dev
 ```
+now we build it
+```bash
+cd <your_ros2_ws>
+colcon build
+```
+now leave your laptop for a while as it will take time and compute
