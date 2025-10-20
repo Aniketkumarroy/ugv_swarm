@@ -48,3 +48,14 @@ cd <your_ros2_ws>
 colcon build
 ```
 now leave your laptop for a while as it will take time and compute
+
+## Running
+to launch only one bot in the world type
+```
+ros2 launch ugv_swarm launch_one_bot.launch.py
+```
+by default the world is empty, to load your preferred world use `world` argument
+```
+ros2 launch ugv_swarm launch_one_bot.launch.py world:=src/aws-robomaker-small-warehouse-world/worlds/no_roof_small_warehouse/no_roof_small_warehouse.world
+```
+if you also want to see complete verbose output of gazebo use `verbose:=true`. if you want to disable gazebo simulation GUI and run headless use `gui:=false` 
