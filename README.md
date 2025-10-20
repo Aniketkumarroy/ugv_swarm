@@ -5,6 +5,14 @@ this is a ros simulation of/swarm of differential drive robot
 - [ ] parameterized enabling and disabling of different sensor suits
 ---
 
+## Build
+clone the repository into your ros2 ws
+```bash
+cd <your_ros2_ws>
+mkdir src
+cd src
+git clone https://Aniketkumarroy/ugv_swarm.git
+```
 
 ```bash
 vcs import --input src/ugv_swarm/dependencies.repos src
