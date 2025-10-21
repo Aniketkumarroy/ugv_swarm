@@ -85,3 +85,17 @@ then in another terminal launch slam
 ros2 launch ugv_swarm launch_slam_toolbox.launch.py
 ```
 this launches the online sync slam of slam toolbox. to configure the params use `params_file` argument. by default it uses `ugv_swarm/config/slam_params.yaml`
+to visualize this in use `ugv_swarm/rviz/mapping_one_bot.rviz`
+```bash
+rviz2 -d <path to ugv_swarm>/rviz/mapping_one_bot.rviz
+```
+
+To launch Navigation run the navigation launch file in another terminal after launching robot in gazebo and slam
+```bash
+ros2 launch ugv_swarm launch_navigation.launch.py
+```
+visualize in rviz
+```bash
+rviz2 -d <path to ugv_swarm>/rviz/navigation_one_bot.rviz
+```
+you can give goal pose in rviz to make the robot move and create map
