@@ -99,3 +99,21 @@ visualize in rviz
 rviz2 -d <path to ugv_swarm>/rviz/navigation_one_bot.rviz
 ```
 you can give goal pose in rviz to make the robot move and create map
+
+to lacalize the bot in a map run localization
+first launch bot in gazebo then in a different terminal launch localization with the map(compulsory argument)
+```bash
+ros2 launch ugv_swarm launch_localization.launch.py map:=<path to map yaml file>
+```
+launch rviz in a different terminal
+```bash
+rviz2 -d <path to ugv_swarm>/rviz/navigation_one_bot.rviz
+```
+then give a initial estimate of bot in rviz
+then you can launch navigation with `map_subscribe_transient_local` set to true to make the robot explore its surrounding and localize better
+```bash
+ros2 launch ugv_swarm launch_navigation.launch.py map_subscribe_transient_local:=true
+```
+give goal using rviz to make it localize better
+
+both localization and navigation also accepts separate params file argument(`params_file`) for tuning them, you can supply your own. by default they uses the `ugv_swarm/config/nav2_params.yaml` file
