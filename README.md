@@ -80,9 +80,9 @@ to launch multiple robots run
 ```bash
 ros2 launch ugv_swarm launch_multi_bot.launch.py
 ```
-to configure the number of robots, their name and their starting pose you can provide your own custom config file by `robots_config` argument. by default this script uses the `ugv_swarm/config/multi_bot.yaml` file. `verbose` and `gui` are also supported argument.
+to configure the number of robots, their name and their starting pose you can provide your own custom config file by `robots_config` argument. by default this script uses the `ugv_swarm/config/multi_bot.yaml` file. `verbose` and `gui` are also supported arguments.
 
-To launch slam first launch robot in gazebo
+To perform slam first, launch robot in gazebo
 ```bash
 ros2 launch ugv_swarm launch_one_bot.launch.py world:=src/aws-robomaker-small-warehouse-world/worlds/no_roof_small_warehouse/no_roof_small_warehouse.world
 ```
@@ -91,12 +91,12 @@ then in another terminal launch slam
 ros2 launch ugv_swarm launch_slam_toolbox.launch.py
 ```
 this launches the online sync slam of slam toolbox. to configure the params use `params_file` argument. by default it uses `ugv_swarm/config/slam_params.yaml`
-to visualize this in use `ugv_swarm/rviz/mapping_one_bot.rviz`
+to visualize this use `ugv_swarm/rviz/mapping_one_bot.rviz`
 ```bash
 rviz2 -d <path to ugv_swarm>/rviz/mapping_one_bot.rviz
 ```
 
-To launch Navigation run the navigation launch file in another terminal after launching robot in gazebo and slam
+To launch Navigation run the navigation launch file in another terminal after launching robot in gazebo and launching slam
 ```bash
 ros2 launch ugv_swarm launch_navigation.launch.py
 ```
@@ -106,7 +106,7 @@ rviz2 -d <path to ugv_swarm>/rviz/navigation_one_bot.rviz
 ```
 you can give goal pose in rviz to make the robot move and create map
 
-to lacalize the bot in a map run localization
+to localize the bot in a map run localization
 first launch bot in gazebo then in a different terminal launch localization with the map(compulsory argument)
 ```bash
 ros2 launch ugv_swarm launch_localization.launch.py map:=<path to map yaml file>
