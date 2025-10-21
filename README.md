@@ -69,3 +69,9 @@ by default the world is empty, to load your preferred world use `world` argument
 ros2 launch ugv_swarm launch_one_bot.launch.py world:=src/aws-robomaker-small-warehouse-world/worlds/no_roof_small_warehouse/no_roof_small_warehouse.world
 ```
 if you also want to see complete verbose output of gazebo(for debugging) use `verbose:=true`. if you want to disable gazebo simulation GUI and run headless use `gui:=false` 
+
+to launch multiple robots run
+```bash
+ros2 launch ugv_swarm launch_multi_bot.launch.py
+```
+to configure the number of robots, their name and their starting pose you can provide your own custom config file by `robots_config` param. by default this script uses the `ugv_swarm/config/multi_bot.yaml` file. `verbose` and `gui` are also supported params
