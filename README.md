@@ -50,6 +50,12 @@ colcon build
 now leave your laptop for a while as it will take time and compute
 
 ## Running
+>NOTE: if you are using docker, you have to enable your xhost to allow gui application for docker, run
+>```bash
+>xhost +
+>```
+> on your host computer
+
 before running we need to make some setup to enable gazebo running properly without halting
 first source gazebo setup in every terminal session
 ```bash
