@@ -50,6 +50,16 @@ colcon build
 now leave your laptop for a while as it will take time and compute
 
 ## Running
+before running we need to make some setup to enable gazebo running properly without halting
+first source gazebo setup in every terminal session
+```bash
+source /usr/share/gazebo/setup.bash
+```
+now gazebo can open properly.
+now the aws world we will be using have some custom worlds using models unknown to gazebo. to make them known to gazebo set their path by `GAZEBO_MODEL_PATH`
+```bash
+export GAZEBO_MODEL_PATH=<path to aws-robomaker-small-warehouse-world>/models/
+```
 to launch only one bot in the world type
 ```
 ros2 launch ugv_swarm launch_one_bot.launch.py
@@ -58,4 +68,4 @@ by default the world is empty, to load your preferred world use `world` argument
 ```
 ros2 launch ugv_swarm launch_one_bot.launch.py world:=src/aws-robomaker-small-warehouse-world/worlds/no_roof_small_warehouse/no_roof_small_warehouse.world
 ```
-if you also want to see complete verbose output of gazebo use `verbose:=true`. if you want to disable gazebo simulation GUI and run headless use `gui:=false` 
+if you also want to see complete verbose output of gazebo(for debugging) use `verbose:=true`. if you want to disable gazebo simulation GUI and run headless use `gui:=false` 
